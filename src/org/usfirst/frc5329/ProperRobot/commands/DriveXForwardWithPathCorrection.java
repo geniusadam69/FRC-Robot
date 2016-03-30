@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 /**
  *
  */
-public class DriveXForward extends PIDCommand {
+public class DriveXForwardWithPathCorrection extends PIDCommand {
 	private double nFeet;
 	private double tolerance = 0.5;
 	private double speed;
 	private final double MIN_SPEED = 0.22;
 	
-    public DriveXForward(double feet) {
+    public DriveXForwardWithPathCorrection(double feet) {
     	super(0.1, 0.001, 0);
     	requires(Robot.drivetrain);
     	nFeet = feet;
