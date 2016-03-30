@@ -15,6 +15,13 @@ public class DriveXForward extends PIDCommand {
 	private double speed;
 	private final double MIN_SPEED = 0.22;
 	
+	//path Correctino paramaters
+	private final double pathKp = 0.1;  //This is not a true Kp.  It's a reduction factor for the overcontributing motor
+	private final double lastErrorWeight=0.2;
+	private double lastError;
+	private double initialHeader;
+	
+	
     public DriveXForward(double feet) {
     	super(0.1, 0.001, 0);
     	requires(Robot.drivetrain);
@@ -28,11 +35,23 @@ public class DriveXForward extends PIDCommand {
     	Robot.drivetrain.resetEncoders();
     	speed = 0.5;
     	setSetpoint(nFeet);
+    	initialHeader = Robot.navx.getYaw();
     	
     }
     protected void execute() {
     	double speed = limitSpeed();
-    	Robot.drivetrain.setSpeed(speed, -speed);
+    	//this error should be between -1 and 1 but could go all the way to -2 to t2
+    	double error = (Robot.navx.getYaw() - initialHeader)/180 + lastError*lastErrorWeight;
+    	if (error < -1) error = -1;
+    	if (error >1) error = 1;
+    	lastError = error;
+    	double leftSpeed = speed;
+    	double rightSpeed = speed;
+    	//whichever side is leading, reduce the speed by a factor times the error; 
+    	if (error<0) rightSpeed -= pathKp*(1+error);
+    	if (error>0) leftSpeed -=pathKp* (1-error);
+    	
+    	Robot.drivetrain.setSpeed(leftSpeed, -rightSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
