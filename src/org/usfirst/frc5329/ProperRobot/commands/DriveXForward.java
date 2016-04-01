@@ -11,12 +11,15 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class DriveXForward extends PIDCommand {
 	private double nFeet;
-	private double tolerance = 0.5;
+	private final double tolerance = 0.1;
 	private double speed;
 	private final double MIN_SPEED = 0.22;
+	private double lastSpeed;
+	private final double rampUpLimit = 0.02;
+	private final double rampDownLimit = 0.1;
 	
-	//path Correctino paramaters
-	private final double pathKp = 0.1;  //This is not a true Kp.  It's a reduction factor for the overcontributing motor
+	//path Correction parameters
+	private final double pathKp = 0.1;  //This is not a true Kp.  It's a reduction factor for the over-contributing motor
 	private final double lastErrorWeight=0.2;
 	private double lastError;
 	private double initialHeader;
@@ -32,6 +35,7 @@ public class DriveXForward extends PIDCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println("Normal Drive");
     	Robot.drivetrain.resetEncoders();
     	speed = 0.5;
     	setSetpoint(nFeet);
@@ -39,7 +43,9 @@ public class DriveXForward extends PIDCommand {
     	
     }
     protected void execute() {
-    	double speed = limitSpeed();
+    	double speed = rampSpeed(limitSpeed());
+    	System.out.println(speed);
+    	lastSpeed = speed;
     	//this error should be between -1 and 1 but could go all the way to -2 to t2
     	double error = (Robot.navx.getYaw() - initialHeader)/180 + lastError*lastErrorWeight;
     	if (error < -1) error = -1;
@@ -52,12 +58,19 @@ public class DriveXForward extends PIDCommand {
     	if (error>0) leftSpeed -=pathKp* (1-error);
     	
     	Robot.drivetrain.setSpeed(leftSpeed, -rightSpeed);
+    	if (rightSpeed < 0){
+    		Robot.drivetrain.setRightEncoderNegative();
+    	} else {
+    		Robot.drivetrain.setRightEncoderPositive();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	double distance = returnPIDInput();
+    	System.out.println(speed + " " + Math.abs(distance-nFeet));
     	return Math.abs(distance - nFeet) <= tolerance;
+    	
     }
 
     protected void end() {
@@ -69,7 +82,7 @@ public class DriveXForward extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		return (Robot.drivetrain.getLeftEncoder() + Robot.drivetrain.getRightEncoder())/2;
+		return (Robot.drivetrain.getRightEncoder());
 	}
 
 	@Override
@@ -85,13 +98,29 @@ public class DriveXForward extends PIDCommand {
 		double minSpeed = MIN_SPEED +0.05;
 		
 		double calcSpeed = (maxSpeed-minSpeed)*Math.abs(returnPIDInput() -nFeet) + minSpeed;
-		
+		System.out.println("Calc: " + calcSpeed);
 		if (Math.abs(calcSpeed) < speed){
 			if (returnPIDInput() -nFeet<0) return calcSpeed;
 			else return -calcSpeed;
 		}
-		
+		System.out.println("Constrained");
 		return speed;
+	}
+	private double rampSpeed(double speed){
+		double rampSpeed;
+		if (speed-lastSpeed > rampUpLimit){
+			rampSpeed = lastSpeed+rampUpLimit;
+			System.out.println("Ramp up");
+		}
+		else if (speed-lastSpeed < -rampDownLimit){
+			rampSpeed = lastSpeed-rampDownLimit;
+			System.out.println("Ramp Down");
+		}
+		else{
+			System.out.println("No Ramp");
+			rampSpeed = lastSpeed;
+		}
+		return rampSpeed;
 	}
 	
 }

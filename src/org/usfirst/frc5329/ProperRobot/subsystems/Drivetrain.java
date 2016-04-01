@@ -14,6 +14,7 @@ package org.usfirst.frc5329.ProperRobot.subsystems;
 import org.usfirst.frc5329.ProperRobot.RobotMap;
 import org.usfirst.frc5329.ProperRobot.commands.*;
 
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -30,8 +31,9 @@ public class Drivetrain extends Subsystem {
     private  SpeedController frontRightSpeedCon;
     private  SpeedController backRightSpeedCon;
     private  RobotDrive robotDrive41;
-    private  Encoder leftEncoder;
-    private  Encoder rightEncoder;
+    private  Counter leftEncoder;
+    public  Counter rightEncoder;
+    public final double DPP = 0.01/2.22;
     
 	private final double k_updatePeriod = 0.005; // update every 0.005 seconds/5 milliseconds (200Hz)
 
@@ -41,10 +43,14 @@ public class Drivetrain extends Subsystem {
     	this.backRightSpeedCon = robotMap.getBackRightSpeed();
     	this.backLeftSpeedCon = robotMap.getBackLeftSpeed();
     	this.robotDrive41 = robotMap.getRobotDrive();
-    	this.leftEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-    	this.rightEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X);
+    	//this.rightEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k1X);
+    	//this.leftEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X); //issues
     	
-         
+    	this.leftEncoder = new Counter(0);
+    	this.rightEncoder = new Counter(3);
+    	rightEncoder.setDistancePerPulse(DPP);
+    	leftEncoder.setDistancePerPulse(DPP);
+    	
     }
 
 	protected void initDefaultCommand() {
@@ -75,12 +81,16 @@ public class Drivetrain extends Subsystem {
     	rightEncoder.reset();
     }
     
-    public Encoder getRightEncoderObject(){
-    	return rightEncoder;
-    }
-    public Encoder getLeftEncoderObject(){
+    public Counter getRightEncoderObject(){
+    	return rightEncoder;    }
+    public Counter getLeftEncoderObject(){
     	return leftEncoder;
     }
-	
+    public void setRightEncoderNegative(){
+    	rightEncoder.setDistancePerPulse(-DPP);
+    }
+    public void setRightEncoderPositive(){
+    	rightEncoder.setDistancePerPulse(DPP);
+    }
  }
 

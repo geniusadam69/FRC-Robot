@@ -12,6 +12,7 @@
 package org.usfirst.frc5329.ProperRobot;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SPI;
@@ -47,6 +48,8 @@ public class Robot extends IterativeRobot {
     public static OI oi;
     private Turn90degrees c;
     
+    
+    
 
     /**
      * This function is run when the robot is first started up and should be
@@ -57,12 +60,16 @@ public class Robot extends IterativeRobot {
     	robotMap.init();
     	ballCollector = new BallCollector(robotMap);
         drivetrain = new Drivetrain(robotMap);
+        
         try {
             navx = new AHRS(SPI.Port.kMXP);
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+            
         }
-
+        
+        
+        
         // OI must be constructed after subsystems. If the OI creates Commands
         //(which it very likely will), subsystems are not guaranteed to be0
         // constructed yet. Thus, their requires() statements may grab null
@@ -73,11 +80,13 @@ public class Robot extends IterativeRobot {
         autonomousCommand = new AutonomousCommand();
         c = new Turn90degrees();
     	LiveWindow.addActuator("Turn 90", "Turn 90", c.getPIDController());
-    	CameraServer server = CameraServer.getInstance();
-    	server.setQuality(50);
-    	server.startAutomaticCapture("cam0");
+    	//CameraServer server = CameraServer.getInstance();
+    	//server.setQuality(50);
+    	//server.startAutomaticCapture("cam0");
     	//solenoidCompressor = new SolenoidCompressor();
-
+    	
+    	
+    	
     }
 
     /**
@@ -113,8 +122,8 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         Robot.oi.getButtonA().whenPressed(new TankDriveCommand());
         Robot.oi.getButtonB().whenPressed(new ArcadeDriveCommand());
-        Robot.oi.getButtonY().whenPressed(new DriveXForward(5)); 
-        Robot.oi.getButtonX().whenPressed(new DriveXForward(5));
+        Robot.oi.getButtonY().whenPressed(new DriveXForward(10)); 
+        Robot.oi.getButtonX().whenPressed(new DriveXForwardWithPathCorrection(10));
         Robot.oi.getSelectButton().whenPressed(new ShootBall());
         Robot.oi.getStartButton().whenPressed(new CollectBall());
         Robot.oi.getLeftBumper().whenPressed(new Turn90degrees());
@@ -134,8 +143,8 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-        System.out.println(drivetrain.getLeftEncoderObject().getRaw());
-        System.out.println(drivetrain.getRightEncoderObject().getRaw());
+        //System.out.println(drivetrain.getLeftEncoderObject().getRaw());
+        //System.out.println(drivetrain.getRightEncoderObject().getRaw());
         
         
         
@@ -180,6 +189,8 @@ public class Robot extends IterativeRobot {
         
         SmartDashboard.putNumber("Left Encoder", drivetrain.getLeftEncoder());
         SmartDashboard.putNumber("Right Encoder", drivetrain.getRightEncoder());
+        
+        
     }
 
     /**

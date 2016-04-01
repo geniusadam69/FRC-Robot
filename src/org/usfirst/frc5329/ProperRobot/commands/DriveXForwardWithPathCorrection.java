@@ -28,6 +28,7 @@ public class DriveXForwardWithPathCorrection extends PIDCommand {
     	Robot.drivetrain.resetEncoders();
     	speed = 0.5;
     	setSetpoint(nFeet);
+    	System.out.println("Path Corrected");
     	
     }
     protected void execute() {
@@ -50,7 +51,7 @@ public class DriveXForwardWithPathCorrection extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		return (Robot.drivetrain.getLeftEncoder() + Robot.drivetrain.getRightEncoder())/2;
+		return (Robot.drivetrain.getRightEncoder());
 	}
 
 	@Override
