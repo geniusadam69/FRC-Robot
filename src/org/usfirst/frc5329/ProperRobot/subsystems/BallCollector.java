@@ -39,10 +39,10 @@ public class BallCollector extends Subsystem {
 		solenoid.set(DoubleSolenoid.Value.kOff);
 	}
 	public void reverseSpinner(){
-		rollerSpeed.set(1);
+		rollerSpeed.set(-1);
 	}
 	public void forwardSpinner(){
-		rollerSpeed.set(-0.50);
+		rollerSpeed.set(0.50);
 	}
 	public void disableSpinner90(){
 		rollerSpeed.set(0);

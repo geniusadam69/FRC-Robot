@@ -124,10 +124,11 @@ public class Robot extends IterativeRobot {
         Robot.oi.getButtonB().whenPressed(new TheAutonomousCommand());
         Robot.oi.getButtonY().whenPressed(new DriveXForward(5)); 
         Robot.oi.getButtonX().whenPressed(new DriveXForwardWithPathCorrection(5));
-        Robot.oi.getSelectButton().whenPressed(new ShootBall());
-        Robot.oi.getStartButton().whenPressed(new CollectBall());
-        Robot.oi.getLeftBumper().whenPressed(new Turn90degrees());
-        Robot.oi.getRightBumper().whenPressed(new Turn90Degrees2());
+        Robot.oi.getSelectButton().whenPressed(new Turn90degrees());
+        Robot.oi.getStartButton().whenPressed(new Turn90Degrees2());
+        //Robot.oi.getRightTrigger().whileHeld(new ShootBall()); Lets get Left Trigger and Right Trigger bound to collect/shoot
+        Robot.oi.getLeftBumper().whileHeld(new CollectBall());
+        Robot.oi.getRightBumper().whileHeld(new ShootBall());
 
         
         

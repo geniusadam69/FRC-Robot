@@ -8,14 +8,14 @@ public class CrossRockWall extends Command {
 	
 	
 	private double speed;
-	private final double MINIMUM_DISTANCE = 3;
+	private final double MINIMUM_DISTANCE = 6;
 	public CrossRockWall() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void initialize() {
-		speed = 0.5;
+		speed = 1.0;
 		// TODO Auto-generated method stub
 		
 	}
@@ -33,7 +33,7 @@ public class CrossRockWall extends Command {
 		double distanceTraveled;
 		boolean pitchFlat= false;
 		boolean minimumDistance= false;
-		if (Robot.navx.getPitch() > (1) && Robot.navx.getPitch() < (-1)){
+		if (Robot.navx.getPitch() > (2) && Robot.navx.getPitch() < (-2)){
 			pitchFlat = true;
 		}
 		distanceTraveled = (Robot.drivetrain.getLeftEncoder());

@@ -26,7 +26,7 @@ public class ShootBall extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.oi.getStartButton().get();
+        return Robot.oi.getRightBumper().get();
     }
 
     // Called once after isFinished returns true

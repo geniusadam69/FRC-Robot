@@ -2,6 +2,7 @@ package org.usfirst.frc5329.ProperRobot;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -29,7 +30,7 @@ public class RobotMapTest implements RobotMap{
         drivetrainBackRightSpeed = new Talon(3);
         LiveWindow.addActuator("Drive train", "backRight speed con", (Talon) drivetrainBackRightSpeed);
         
-        rollerSpeed = new Talon(4);
+        rollerSpeed = new Victor(4);
         
         drivetrainRobotDrive41 = new RobotDrive(drivetrainFrontLeftSpeed, drivetrainBackLeftSpeed,
               drivetrainFrontRightSpeed, drivetrainBackRightSpeed);

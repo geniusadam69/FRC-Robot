@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CrossRamparts extends Command {
 	
 	private double speed;
-	private final double MINIMUM_DISTANCE = 3;
+	private final double MINIMUM_DISTANCE = 6;
 
 
 	public CrossRamparts() {
@@ -16,7 +16,7 @@ public class CrossRamparts extends Command {
 
 	@Override
 	protected void initialize() {
-		speed = 0.5;
+		speed = 1.0;
 		// TODO Auto-generated method stub
 		
 	}
@@ -33,7 +33,7 @@ public class CrossRamparts extends Command {
 		double distanceTraveled;
 		boolean pitchFlat= false;
 		boolean minimumDistance= false;
-		if (Robot.navx.getPitch() > (1) && Robot.navx.getPitch() < (-1)){
+		if (Robot.navx.getPitch() > (2) && Robot.navx.getPitch() < (-2)){
 			pitchFlat = true;
 		}
 		distanceTraveled = (Robot.drivetrain.getLeftEncoder());

@@ -17,10 +17,11 @@ public class TurnToNdegrees extends PIDCommand {
 	private final double MAX_SPEED = 0.65;
 	private final double MIN_SPEED = 0.28;
 	public TurnToNdegrees(double degrees){
-		super(0.2, .4, 0);
+		super(1.05, 0.025, 1); //0.2, 0.4, 0
 		super.requires(Robot.drivetrain);
 		Ndegrees = degrees;
 	}
+	
 
 	@Override
 	protected void initialize() {
@@ -30,7 +31,7 @@ public class TurnToNdegrees extends PIDCommand {
 		}
 		lastYawValue = Robot.navx.getYaw();
 		speed = 1.0;
-		tolerance = 1;
+		tolerance = 0.5;
 		counter = 0;
 		
 		PIDController pc = super.getPIDController();
