@@ -121,14 +121,14 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         Robot.oi.getButtonA().whenPressed(new TankDriveCommand());
-        Robot.oi.getButtonB().whenPressed(new ArcadeDriveCommand());
-        Robot.oi.getButtonY().whenPressed(new DriveXForward(10)); 
-        Robot.oi.getButtonX().whenPressed(new DriveXForwardWithPathCorrection(10));
+        Robot.oi.getButtonB().whenPressed(new TheAutonomousCommand());
+        Robot.oi.getButtonY().whenPressed(new DriveXForward(5)); 
+        Robot.oi.getButtonX().whenPressed(new DriveXForwardWithPathCorrection(5));
         Robot.oi.getSelectButton().whenPressed(new ShootBall());
         Robot.oi.getStartButton().whenPressed(new CollectBall());
         Robot.oi.getLeftBumper().whenPressed(new Turn90degrees());
         Robot.oi.getRightBumper().whenPressed(new Turn90Degrees2());
-        
+
         
         
         
@@ -140,6 +140,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
  
+    
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         

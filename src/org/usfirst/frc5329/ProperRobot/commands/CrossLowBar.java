@@ -7,7 +7,7 @@ import org.usfirst.frc5329.ProperRobot.Robot;
 public class CrossLowBar extends Command {
 	
 	private double speed;
-	private final double MINIMUM_DISTANCE = 1; 
+	private final double MINIMUM_DISTANCE = 6; 
 	public CrossLowBar() {
 		requires(Robot.drivetrain);
 		// TODO Auto-generated constructor stub
@@ -15,8 +15,8 @@ public class CrossLowBar extends Command {
 
 	@Override
 	protected void initialize() {
-		speed = 0.5;
-		
+		speed = 1.0;
+		Robot.drivetrain.resetEncoders();
 		//savedDistance = Robot.encoder.distance;
 		 //We want current distance to update as we go, not stay as 0
 		// TODO Auto-generated method stub
@@ -40,20 +40,20 @@ public class CrossLowBar extends Command {
 		double distanceTraveled;
 		boolean pitchFlat= false;
 		boolean minimumDistance= true;
-		if (Robot.navx.getPitch() < (1) && Robot.navx.getPitch() > (-1)){
+		if (Robot.navx.getPitch() < (2) && Robot.navx.getPitch() > (-2)){
 			pitchFlat = true;
 		}
 		//distanceTraveled = (Robot.drivetrain.getLeftEncoder());
-		distanceTraveled = Robot.navx.getDisplacementX();
+		distanceTraveled = Robot.drivetrain.getRightEncoder();
 		if (distanceTraveled > MINIMUM_DISTANCE){
 			minimumDistance = true;
 		}
-		System.out.println(pitchFlat + " " + Robot.navx.getDisplacementX());
+		System.out.println(pitchFlat + " " + Robot.drivetrain.getRightEncoder());
 		if (pitchFlat == false || minimumDistance == false){
 			
-			 return false;
+			 return true;
 		}
-		return true;
+		return false;
 	}
 
 	@Override

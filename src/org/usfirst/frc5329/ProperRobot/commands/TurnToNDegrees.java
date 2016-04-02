@@ -5,81 +5,117 @@ import org.usfirst.frc5329.ProperRobot.Robot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
-public class TurnToNDegrees extends PIDCommand {
-	private static final double Kp=1;
-	private static final double Ki=0;
-	private static final double Kd=0;
-	private static final double MAX_SPEED_ANGLE = .25;
-	private static final double MAX_SPEED_ANGLE_2 = .5;
-	private static final double MAX_SPEED=0.15;
-	private static final double MAX_SPEED2 = .3; 
-	private static final double TOLERANCE = 0.5;
-	private static final double INITIAL_SPEED = 1.0;//PEANUT		
-	private double angle;
-	private PIDController pc;
+public class TurnToNdegrees extends PIDCommand {
 	private double endPoint;
-	
+	private double Ndegrees;
+	private double tolerance;
+	private double yawOffset = 0;
+	private double lastYawValue;
 	private double speed;
-	
-	public TurnToNDegrees(double angle) {
-		super(Kp, Ki, Kd);
+	private int counter;
+	private final double INPUT_SCALING_FACTOR =180;
+	private final double MAX_SPEED = 0.65;
+	private final double MIN_SPEED = 0.28;
+	public TurnToNdegrees(double degrees){
+		super(0.2, .4, 0);
 		super.requires(Robot.drivetrain);
-		this.angle = angle;
-		this.pc = super.getPIDController();
-		pc.setContinuous(true);
-		pc.setInputRange(-1, 1);
-
-		// TODO Auto-generated constructor stub
-	}
-
-
-	@Override
-	protected double returnPIDInput() {
-		return Robot.navx.getYaw();
-	}
-
-	@Override
-	protected void usePIDOutput(double output) {
-		this.speed = output;
-		//Fix speed if too much
-		if (Math.abs(pc.getError())<MAX_SPEED_ANGLE && speed>MAX_SPEED) speed = MAX_SPEED;
-		if (Math.abs(pc.getError())<MAX_SPEED_ANGLE_2 && speed>MAX_SPEED2) speed = MAX_SPEED2;
-		if (Math.abs(pc.getError())<MAX_SPEED_ANGLE && speed>-MAX_SPEED) speed = MAX_SPEED;
-		if (Math.abs(pc.getError())<MAX_SPEED_ANGLE_2 && speed>-MAX_SPEED2) speed = MAX_SPEED2;
-
+		Ndegrees = degrees;
 	}
 
 	@Override
 	protected void initialize() {
-		endPoint = angle;
+		endPoint = Robot.navx.getYaw() + Ndegrees;
 		if (endPoint > 180) { 
 			endPoint -= 360;
 		}
-		speed = INITIAL_SPEED;
-		setSetpoint(endPoint/180);
+		lastYawValue = Robot.navx.getYaw();
+		speed = 1.0;
+		tolerance = 1;
+		counter = 0;
+		
+		PIDController pc = super.getPIDController();
+		pc.setSetpoint(endPoint/INPUT_SCALING_FACTOR);
+		pc.setContinuous(true);
+		pc.setInputRange(-180/INPUT_SCALING_FACTOR, 180/INPUT_SCALING_FACTOR);
+		
 	}
 
 	@Override
 	protected void execute() {
+		//System.out.println("Executing");
+		if (Math.abs(Robot.navx.getYaw() - endPoint) <= tolerance) {
+			Robot.drivetrain.setSpeed(0, 0);
+		}
+		else {
 		Robot.drivetrain.setSpeed(speed, speed);
-
+		}
+		if (Math.abs(Robot.navx.getYaw() - endPoint) <= tolerance) 
+		{ counter ++; }else {
+			counter = 0;
+			
+		}
 	}
+	
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(Robot.navx.getYaw() - angle) <TOLERANCE;
+		return (Math.abs(Robot.navx.getYaw() - endPoint) <= tolerance) && counter > 5;
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-
+	
+		
 	}
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-
+		
+		
 	}
 
+	@Override
+	protected double returnPIDInput() {
+		return Robot.navx.getYaw() / INPUT_SCALING_FACTOR;
+	}
+
+	@Override
+	protected void usePIDOutput(double output) {
+		//System.out.println(getPIDController().);
+		System.out.println("Error:  " + getPIDController().getError());
+		double error = getPIDController().getError();
+		if (error<0) {
+			if (output <-MAX_SPEED){
+				output = -MAX_SPEED;
+				System.out.println("negative max speed");
+			}
+			else if (output > -MIN_SPEED){
+				output = -MIN_SPEED;
+				System.out.println("negative min speed");
+			}else{
+				output = -Math.abs(output);
+				System.out.println("negative computed speed");
+			}
+		}else{
+			if (output >MAX_SPEED){
+				output = MAX_SPEED;
+				System.out.println("positive max speed");
+			}
+			else if (output < MIN_SPEED){
+				output = MIN_SPEED;
+				System.out.println("positive min speed");
+			}else{
+				output = Math.abs(output);
+				System.out.println("positive computed speed");
+			}
+		}
+		this.speed = output;
+		
+	}
+
+	
+	public PIDController getPIDController(){
+		
+		return super.getPIDController();
+	}
 }

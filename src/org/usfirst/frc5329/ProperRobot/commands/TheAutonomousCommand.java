@@ -26,7 +26,7 @@ public class TheAutonomousCommand extends CommandGroup {
 		addSequential(new DriveXForward(A));
 		addSequential(getObstacleCommand(OBSTACLE));
 		addSequential(new DriveXForward(B));
-		addSequential(new TurnToNDegrees(C));
+		addSequential(new TurnToNdegrees(C));
 		addSequential(new DriveXForward(D));
 		addSequential(new ShootBall());
 	}
@@ -39,32 +39,32 @@ public class TheAutonomousCommand extends CommandGroup {
 		double F = 45; //fix later
 		double G = 5; //fix later
 			addSequential(new DriveXForward(A));
-			addSequential(new TurnToNDegrees(B));
+			addSequential(new TurnToNdegrees(B));
 			addSequential(new DriveXForward(C));
-			addSequential(new TurnToNDegrees(D));
+			addSequential(new TurnToNdegrees(D));
 			addSequential(getObstacleCommand(OBSTACLE));
 			addSequential(new DriveXForward(E));
-			addSequential(new TurnToNDegrees(F));
+			addSequential(new TurnToNdegrees(F));
 			addSequential(new DriveXForward(G));
 			addSequential(new ShootBall());
 	}
 		else if(STARTING_POSITION == 3 && DEFENSE_POSITION == 1 && GOAL_POSITION == 1) {	
-			double A = 2.58;
+			double A = 4.5;
 			double B = -90;
-			double C = 8.916;
-			double D = 0;
-			double E = 5; //fix later
+			double C = 6.0;
+			double D = 90;
+			double E = 4.5; //fix later
 			double F = 45; //fix later
-			double G = 5; //fix later
+			double G = 4; //fix later
 				addSequential(new DriveXForward(A));
-				addSequential(new TurnToNDegrees(B));
+				addSequential(new TurnToNdegrees(B));
 				addSequential(new DriveXForward(C));
-				addSequential(new TurnToNDegrees(D));
+				addSequential(new TurnToNdegrees(D));
 				addSequential(getObstacleCommand(OBSTACLE));
-				addSequential(new DriveXForward(E));
-				addSequential(new TurnToNDegrees(F));
-				addSequential(new DriveXForward(G));
-				addSequential(new ShootBall());
+				//addSequential(new DriveXForward(E));
+				//addSequential(new TurnToNdegrees(F));
+				//addSequential(new DriveXForward(G));
+				//addSequential(new ShootBall());
 		}
 		else if(STARTING_POSITION == 4 && DEFENSE_POSITION == 1 && GOAL_POSITION == 1) {	
 				double A = 2.58;
@@ -75,12 +75,12 @@ public class TheAutonomousCommand extends CommandGroup {
 				double F = 45; //fix later
 				double G = 5; //fix later
 					addSequential(new DriveXForward(A));
-					addSequential(new TurnToNDegrees(B));
+					addSequential(new TurnToNdegrees(B));
 					addSequential(new DriveXForward(C));
-					addSequential(new TurnToNDegrees(D));
+					addSequential(new TurnToNdegrees(D));
 					addSequential(getObstacleCommand(OBSTACLE));
 					addSequential(new DriveXForward(E));
-					addSequential(new TurnToNDegrees(F));
+					addSequential(new TurnToNdegrees(F));
 					addSequential(new DriveXForward(G));
 					addSequential(new ShootBall());
 			}
@@ -93,12 +93,12 @@ public class TheAutonomousCommand extends CommandGroup {
 					double F = 45; //fix later
 					double G = 5; //fix later
 						addSequential(new DriveXForward(A));
-						addSequential(new TurnToNDegrees(B));
+						addSequential(new TurnToNdegrees(B));
 						addSequential(new DriveXForward(C));
-						addSequential(new TurnToNDegrees(D));
+						addSequential(new TurnToNdegrees(D));
 						addSequential(getObstacleCommand(OBSTACLE));
 						addSequential(new DriveXForward(E));
-						addSequential(new TurnToNDegrees(F));
+						addSequential(new TurnToNdegrees(F));
 						addSequential(new DriveXForward(G));
 						addSequential(new ShootBall());
 				}
@@ -113,9 +113,9 @@ public class TheAutonomousCommand extends CommandGroup {
 			double I = 5; //fix later
 				addSequential(new DriveXForward(A));
 				addSequential(getObstacleCommand(OBSTACLE));
-				addSequential(new TurnToNDegrees(B));
+				addSequential(new TurnToNdegrees(B));
 				addSequential(new DriveXForward(C));
-				addSequential(new TurnToNDegrees(H));
+				addSequential(new TurnToNdegrees(H));
 				addSequential(new DriveXForward(I));
 				addSequential(new ShootBall());
 		}
@@ -134,13 +134,13 @@ public class TheAutonomousCommand extends CommandGroup {
 			double I = 5; //fix later
 				addSequential(new DriveXForward(A));
 				addSequential(getObstacleCommand(OBSTACLE));
-				addSequential(new TurnToNDegrees(B));
+				addSequential(new TurnToNdegrees(B));
 				addSequential(new DriveXForward(C));
-				addSequential(new TurnToNDegrees(D));
+				addSequential(new TurnToNdegrees(D));
 				addSequential(new DriveXForward(E));
-				addSequential(new TurnToNDegrees(F));
+				addSequential(new TurnToNdegrees(F));
 				addSequential(new DriveXForward(G));
-				addSequential(new TurnToNDegrees(H));
+				addSequential(new TurnToNdegrees(H));
 				addSequential(new DriveXForward(I));
 				addSequential(new ShootBall());
 		}
@@ -158,13 +158,13 @@ public class TheAutonomousCommand extends CommandGroup {
 			double I = 5; //fix later
 				addSequential(new DriveXForward(A));
 				addSequential(getObstacleCommand(OBSTACLE));
-				addSequential(new TurnToNDegrees(B));
+				addSequential(new TurnToNdegrees(B));
 				addSequential(new DriveXForward(C));
-				addSequential(new TurnToNDegrees(D));
+				addSequential(new TurnToNdegrees(D));
 				addSequential(new DriveXForward(E));
-				addSequential(new TurnToNDegrees(F));
+				addSequential(new TurnToNdegrees(F));
 				addSequential(new DriveXForward(G));
-				addSequential(new TurnToNDegrees(H));
+				addSequential(new TurnToNdegrees(H));
 				addSequential(new DriveXForward(I));
 				addSequential(new ShootBall());
 		}
@@ -180,13 +180,13 @@ public class TheAutonomousCommand extends CommandGroup {
 			double I = 5; //fix later
 				addSequential(new DriveXForward(A));
 				addSequential(getObstacleCommand(OBSTACLE));
-				addSequential(new TurnToNDegrees(B));
+				addSequential(new TurnToNdegrees(B));
 				addSequential(new DriveXForward(C));
-				addSequential(new TurnToNDegrees(D));
+				addSequential(new TurnToNdegrees(D));
 				addSequential(new DriveXForward(E));
-				addSequential(new TurnToNDegrees(F));
+				addSequential(new TurnToNdegrees(F));
 				addSequential(new DriveXForward(G));
-				addSequential(new TurnToNDegrees(H));
+				addSequential(new TurnToNdegrees(H));
 				addSequential(new DriveXForward(I));
 				addSequential(new ShootBall());
 		}
@@ -203,13 +203,13 @@ public class TheAutonomousCommand extends CommandGroup {
 		double I = 5; //fix later
 			addSequential(new DriveXForward(A));
 			addSequential(getObstacleCommand(OBSTACLE));
-			addSequential(new TurnToNDegrees(B));
+			addSequential(new TurnToNdegrees(B));
 			addSequential(new DriveXForward(C));
-			addSequential(new TurnToNDegrees(D));
+			addSequential(new TurnToNdegrees(D));
 			addSequential(new DriveXForward(E));
-			addSequential(new TurnToNDegrees(F));
+			addSequential(new TurnToNdegrees(F));
 			addSequential(new DriveXForward(G));
-			addSequential(new TurnToNDegrees(H));
+			addSequential(new TurnToNdegrees(H));
 			addSequential(new DriveXForward(I));
 			addSequential(new ShootBall());
 	}
@@ -225,13 +225,13 @@ public class TheAutonomousCommand extends CommandGroup {
 			double I = 5; //fix later
 				addSequential(new DriveXForward(A));
 				addSequential(getObstacleCommand(OBSTACLE));
-				addSequential(new TurnToNDegrees(B));
+				addSequential(new TurnToNdegrees(B));
 				addSequential(new DriveXForward(C));
-				addSequential(new TurnToNDegrees(D));
+				addSequential(new TurnToNdegrees(D));
 				addSequential(new DriveXForward(E));
-				addSequential(new TurnToNDegrees(F));
+				addSequential(new TurnToNdegrees(F));
 				addSequential(new DriveXForward(G));
-				addSequential(new TurnToNDegrees(H));
+				addSequential(new TurnToNdegrees(H));
 				addSequential(new DriveXForward(I));
 				addSequential(new ShootBall());
 		}
@@ -247,13 +247,13 @@ public class TheAutonomousCommand extends CommandGroup {
 			double I = 5; //fix later
 				addSequential(new DriveXForward(A));
 				addSequential(getObstacleCommand(OBSTACLE));
-				addSequential(new TurnToNDegrees(B));
+				addSequential(new TurnToNdegrees(B));
 				addSequential(new DriveXForward(C));
-				addSequential(new TurnToNDegrees(D));
+				addSequential(new TurnToNdegrees(D));
 				addSequential(new DriveXForward(E));
-				addSequential(new TurnToNDegrees(F));
+				addSequential(new TurnToNdegrees(F));
 				addSequential(new DriveXForward(G));
-				addSequential(new TurnToNDegrees(H));
+				addSequential(new TurnToNdegrees(H));
 				addSequential(new DriveXForward(I));
 				addSequential(new ShootBall());
 		}
@@ -265,9 +265,9 @@ public class TheAutonomousCommand extends CommandGroup {
 			double E = 5; //fix later
 				addSequential(new DriveXForward(A));
 				addSequential(getObstacleCommand(OBSTACLE));
-				addSequential(new TurnToNDegrees(B));
+				addSequential(new TurnToNdegrees(B));
 				addSequential(new DriveXForward(C));
-				addSequential(new TurnToNDegrees(D));
+				addSequential(new TurnToNdegrees(D));
 				addSequential(new DriveXForward(E));
 				addSequential(new ShootBall());
 		}

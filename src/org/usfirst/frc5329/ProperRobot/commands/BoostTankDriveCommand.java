@@ -14,7 +14,7 @@ public class BoostTankDriveCommand extends Command {
 	}
 	@Override
 	protected void initialize() {
-		baseSpeed = 0.3;
+		baseSpeed = 0.5;
 	}
 
 	public double baseSpeed;
@@ -22,16 +22,16 @@ public class BoostTankDriveCommand extends Command {
 	protected void execute() {
 		double leftValue;
 		double rightValue;
-		double rightBumper;
+		double rightTrigger;
 		if (Robot.oi.getRightTrigger()){
-			rightBumper = 1;
+			rightTrigger = 1;
 		
 		} else {
-			rightBumper = 0;
+			rightTrigger = 0;
 		}
 		
-		leftValue = Robot.oi.getLeftSpeed()*(baseSpeed+(1-baseSpeed)*rightBumper);
-		rightValue = Robot.oi.getRightSpeed()*(baseSpeed+(1-baseSpeed)*rightBumper);
+		leftValue = Robot.oi.getLeftSpeed()*(-baseSpeed+(1-baseSpeed)*rightTrigger);
+		rightValue = Robot.oi.getRightSpeed()*(baseSpeed+(1-baseSpeed)*rightTrigger);
 		Robot.drivetrain.getRobotDrive().tankDrive(leftValue, rightValue); 
 		
 	}
