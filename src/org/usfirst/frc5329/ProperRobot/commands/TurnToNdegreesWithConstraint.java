@@ -5,7 +5,7 @@ import org.usfirst.frc5329.ProperRobot.Robot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
-public class TurnToNdegrees extends PIDCommand {
+public class TurnToNdegreesWithConstraint extends PIDCommand {
 	private double Ndegrees;
 	private double tolerance;
 	private double speed;
@@ -13,7 +13,7 @@ public class TurnToNdegrees extends PIDCommand {
 	private final double INPUT_SCALING_FACTOR =180;
 	private final double MAX_SPEED = 0.65;
 	private final double MIN_SPEED = 0.22;
-	public TurnToNdegrees(double degrees){
+	public TurnToNdegreesWithConstraint(double degrees){
 		super(1.05, 0.025, 1); //0.2, 0.4, 0
 		super.requires(Robot.drivetrain);
 		Ndegrees = degrees;
