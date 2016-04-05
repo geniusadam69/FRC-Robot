@@ -1,4 +1,4 @@
-package org.usfirst.frc5329.ProperRobot.commands;
+package org.usfirst.frc5329.ProperRobot.commands.balls;
 
 import org.usfirst.frc5329.ProperRobot.Robot;
 
@@ -7,10 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CollectBall extends Command {
+public class ShootBall extends Command {
 
-    public CollectBall() {
-    	requires(Robot.ballCollector);
+    public ShootBall() {
+    requires(Robot.ballCollector);
+    setTimeout(2);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -21,12 +22,13 @@ public class CollectBall extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ballCollector.forwardSpinner();
+    	Robot.ballCollector.reverseSpinner();
+    	Robot.ballCollector.close();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return ! Robot.oi.getLeftBumper().get(); //Robot.oi.getLeftBumper().get();
+        return !Robot.oi.getRightBumper().get();
     }
 
     // Called once after isFinished returns true

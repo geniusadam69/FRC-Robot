@@ -1,7 +1,7 @@
 package org.usfirst.frc5329.ProperRobot.subsystems;
 
 import org.usfirst.frc5329.ProperRobot.RobotMap;
-import org.usfirst.frc5329.ProperRobot.commands.ResetPneumatic;
+import org.usfirst.frc5329.ProperRobot.commands.balls.ResetPneumatic;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;

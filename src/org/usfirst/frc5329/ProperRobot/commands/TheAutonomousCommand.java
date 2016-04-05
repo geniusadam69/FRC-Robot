@@ -1,11 +1,14 @@
 package org.usfirst.frc5329.ProperRobot.commands;
 
+import org.usfirst.frc5329.ProperRobot.commands.balls.AutonomousShootBall;
+import org.usfirst.frc5329.ProperRobot.commands.balls.ShootBall;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class TheAutonomousCommand extends CommandGroup {
 	
-	public final static int STARTING_POSITION = 1;
+	public final static int STARTING_POSITION = 3;
 	
 	public final static int DEFENSE_POSITION = 1;
 	
@@ -34,7 +37,7 @@ public class TheAutonomousCommand extends CommandGroup {
 		double A = 4.5; // 4.917 ft actual
 		double B = -90; 
 		double C = 3.5; // 3.665 ft actual
-		double D = 90;
+		double D = 0;
 		double E = 4;   // 4.33 ft actual
 		double F = 44;  // 44 actual
 		double G = 4;   // 4.125 ft actual
@@ -52,7 +55,7 @@ public class TheAutonomousCommand extends CommandGroup {
 			double A = 4.25; // 4.917 ft actual
 			double B = -90;
 			double C = 6.25; // 7.33 ft actual
-			double D = 90;
+			double D = 0;
 			double E = 4;   // 4.33 ft actual
 			double F = 44;  // 44 actual
 			double G = 4;   // 4.125 ft actual
@@ -64,7 +67,7 @@ public class TheAutonomousCommand extends CommandGroup {
 				addSequential(new DriveXForward(E));
 				addSequential(new TurnToNdegrees(F));
 				addSequential(new DriveXForward(G));
-				addSequential(new ShootBall());
+				addSequential(new AutonomousShootBall());
 		}
 		else if(STARTING_POSITION == 4 && DEFENSE_POSITION == 1 && GOAL_POSITION == 1) {	
 				double A = 2.58;
@@ -148,6 +151,7 @@ public class TheAutonomousCommand extends CommandGroup {
 	*/
 	
 		 else if (STARTING_POSITION == 3 && DEFENSE_POSITION == 3 && GOAL_POSITION == 1) {	
+			 
 			double A = 2.58;
 			double B = 0;
 			double C = 5;//fix later
@@ -167,7 +171,7 @@ public class TheAutonomousCommand extends CommandGroup {
 				addSequential(new DriveXForward(G));
 				addSequential(new TurnToNdegrees(H));
 				addSequential(new DriveXForward(I));
-				//addSequential(new ShootBall());  //we dont want to shoot the ball and miss
+				addSequential(new AutonomousShootBall());  //we dont want to shoot the ball and miss
 		}
 		
 		/* else if (STARTING_POSITION == 3 && DEFENSE_POSITION == 3 && GOAL_POSITION == 2) {	

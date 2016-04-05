@@ -1,4 +1,4 @@
-package org.usfirst.frc5329.ProperRobot.commands;
+package org.usfirst.frc5329.ProperRobot.commands.balls;
 
 import org.usfirst.frc5329.ProperRobot.Robot;
 
@@ -20,7 +20,8 @@ public class ResetPneumatic extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ballCollector.reset();
+    	Robot.ballCollector.disableSpinner90();
+    	Robot.ballCollector.open();
     }
 
     // Make this return true when this Command no longer needs to run execute()

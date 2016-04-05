@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc5329.ProperRobot.commands.*;
+import org.usfirst.frc5329.ProperRobot.commands.balls.CollectBall;
+import org.usfirst.frc5329.ProperRobot.commands.balls.ShootBall;
 import org.usfirst.frc5329.ProperRobot.subsystems.*;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -77,7 +79,7 @@ public class Robot extends IterativeRobot {
         oi = new OI();
 
       
-        autonomousCommand = new AutonomousCommand();
+        autonomousCommand = new TheAutonomousCommand();
         c = new Turn90degrees();
     	LiveWindow.addActuator("Turn 90", "Turn 90", c.getPIDController());
     	//CameraServer server = CameraServer.getInstance();
@@ -102,6 +104,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
+    	navx.reset();
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
@@ -122,9 +125,9 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         Robot.oi.getButtonA().whenPressed(new TankDriveCommand());
         Robot.oi.getButtonB().whenPressed(new TheAutonomousCommand());
-        Robot.oi.getButtonY().whenPressed(new DriveXForward(5)); 
-        Robot.oi.getButtonX().whenPressed(new DriveXForwardWithPathCorrection(5));
-        Robot.oi.getSelectButton().whenPressed(new Turn90degrees());
+        Robot.oi.getButtonY().whenPressed(new DriveXForward(10)); 
+        Robot.oi.getButtonX().whenPressed(new DriveXForward(5));
+        Robot.oi.getSelectButton().whenPressed(new DriveXForward(2.5));
         Robot.oi.getStartButton().whenPressed(new Turn90Degrees2());
         //Robot.oi.getRightTrigger().whileHeld(new ShootBall()); Lets get Left Trigger and Right Trigger bound to collect/shoot
         Robot.oi.getLeftBumper().whileHeld(new CollectBall());

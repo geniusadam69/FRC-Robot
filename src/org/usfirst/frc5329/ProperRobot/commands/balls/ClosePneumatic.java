@@ -1,4 +1,4 @@
-package org.usfirst.frc5329.ProperRobot.commands;
+package org.usfirst.frc5329.ProperRobot.commands.balls;
 
 import org.usfirst.frc5329.ProperRobot.Robot;
 
