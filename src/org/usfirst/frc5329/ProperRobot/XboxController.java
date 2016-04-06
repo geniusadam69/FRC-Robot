@@ -44,11 +44,11 @@ public boolean getRawButton(final int button) {
 
 
 public double getRightTrigger() {
-    return Math.min(getRawAxis(3), 0);
+    return getRawAxis(3);
 }
 
 public double getLeftTrigger() {
-    return Math.max(getRawAxis(2), 0);
+    return getRawAxis(2);
 }
 
 public double getRightJoyX() {
