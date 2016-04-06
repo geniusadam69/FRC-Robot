@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc5329.ProperRobot.commands.*;
 import org.usfirst.frc5329.ProperRobot.commands.balls.CollectBall;
 import org.usfirst.frc5329.ProperRobot.commands.balls.ShootBall;
+import org.usfirst.frc5329.ProperRobot.commands.drive.ArcadeDriveWithTurnAndMinSpeedAdj;
 import org.usfirst.frc5329.ProperRobot.subsystems.*;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -82,9 +83,9 @@ public class Robot extends IterativeRobot {
         autonomousCommand = new TheAutonomousCommand();
         c = new Turn90degrees();
     	LiveWindow.addActuator("Turn 90", "Turn 90", c.getPIDController());
-    	//CameraServer server = CameraServer.getInstance();
-    	//server.setQuality(50);
-    	//server.startAutomaticCapture("cam0");
+    	CameraServer server = CameraServer.getInstance();
+    	server.setQuality(50);
+    	server.startAutomaticCapture("cam0");
     	//solenoidCompressor = new SolenoidCompressor();
     	
     	
@@ -124,8 +125,8 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         Robot.oi.getButtonA().whenPressed(new TankDriveCommand());
-        Robot.oi.getButtonB().whenPressed(new TheAutonomousCommand());
-        Robot.oi.getButtonY().whenPressed(new DriveXForward(10)); 
+        Robot.oi.getButtonB().whenPressed(new ArcadeDriveWithTurnAndMinSpeedAdj());
+        Robot.oi.getButtonY().whenPressed(new TurnToNdegrees(0)); 
         Robot.oi.getButtonX().whenPressed(new DriveXForward(5));
         Robot.oi.getSelectButton().whenPressed(new DriveXForward(2.5));
         Robot.oi.getStartButton().whenPressed(new Turn90Degrees2());

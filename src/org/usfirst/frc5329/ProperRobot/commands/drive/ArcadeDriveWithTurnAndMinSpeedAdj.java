@@ -19,8 +19,8 @@ public class ArcadeDriveWithTurnAndMinSpeedAdj extends Command {
 
 	@Override
 	protected void execute() {
-		double leftStickForward = Robot.oi.getLeftSpeed();
-		double rightStickSide = Robot.oi.getRightStickLeftRight();
+		double leftStickForward = -Robot.oi.getLeftSpeed();
+		double rightStickSide = -Robot.oi.getRightStickLeftRight();
 		double leftTrigger = Robot.oi.getLeftTrigger();
 		double rightTrigger = Robot.oi.getRightTrigger();
 		
@@ -30,7 +30,7 @@ public class ArcadeDriveWithTurnAndMinSpeedAdj extends Command {
 		else if(leftStickForward <0 && leftStickForward <-JOYSTICK_TOLERANCE) moveValue = leftStickForward-MIN_SPEED;
 		else moveValue = 0;
 		
-		double rotateValue = rightStickSide -leftTrigger +rightTrigger;
+		double rotateValue = rightStickSide +leftTrigger -rightTrigger;
 		if (rotateValue > 1) rotateValue = 1;
 		if (rotateValue <-1) rotateValue = -1; 
 		Robot.drivetrain.getRobotDrive().arcadeDrive(moveValue, rotateValue);

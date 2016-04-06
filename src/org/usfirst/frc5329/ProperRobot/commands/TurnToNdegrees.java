@@ -12,11 +12,11 @@ public class TurnToNdegrees extends PIDCommand {
 	private int counter;
 	
 	private final double INPUT_SCALING_FACTOR =180;
-	private final double MAX_SPEED = 0.65;
-	private final double MIN_SPEED = 0.28;
+	private final double MAX_SPEED = 0.45;
+	private final double MIN_SPEED = 0.25;
 	
 	public TurnToNdegrees(double degrees){
-		super(1.05, 0.025, 1); //0.2, 0.4, 0
+		super(0.95, 0, 0.75); //0.2, 0.4, 0
 		super.requires(Robot.drivetrain);
 		nDegrees = degrees;
 	}
@@ -25,7 +25,7 @@ public class TurnToNdegrees extends PIDCommand {
 	@Override
 	protected void initialize() {
 		speed = 1.0;
-		tolerance = 0.5;
+		tolerance = 1.0;
 		counter = 0;
 		
 		PIDController pc = super.getPIDController();
@@ -74,7 +74,7 @@ public class TurnToNdegrees extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		this.speed = limitSpeedOld(output);
+		this.speed = limitSpeedWithMinAdj(output);
 	}
 	
 	public double limitSpeedOld(double speed){

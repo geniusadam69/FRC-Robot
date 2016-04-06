@@ -52,18 +52,19 @@ public class TheAutonomousCommand extends CommandGroup {
 			addSequential(new ShootBall());
 	}
 		else if(STARTING_POSITION == 3 && DEFENSE_POSITION == 1 && GOAL_POSITION == 1) {	
-			double A = 4.25; // 4.917 ft actual
+			double A = 4.917; // 4.917 ft actual
 			double B = -90;
-			double C = 6.25; // 7.33 ft actual
+			double C = 7.53; // 7.33 ft actual
 			double D = 0;
-			double E = 4;   // 4.33 ft actual
+			double E = 4.73;   // 4.33 ft actual
 			double F = 44;  // 44 actual
-			double G = 4;   // 4.125 ft actual
+			double G = 5.325;   // 4.125 ft actual
 				addSequential(new DriveXForward(A));
 				addSequential(new TurnToNdegrees(B));
 				addSequential(new DriveXForward(C));
 				addSequential(new TurnToNdegrees(D));
 				addSequential(getObstacleCommand(OBSTACLE));
+				addSequential(new TurnToNdegrees(0));
 				addSequential(new DriveXForward(E));
 				addSequential(new TurnToNdegrees(F));
 				addSequential(new DriveXForward(G));
